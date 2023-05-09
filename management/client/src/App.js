@@ -7,38 +7,28 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { createTheme, makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { Component, useEffect, useState } from 'react';
 
 
 
-const customers = [
-  {
-  id: 1,
-  image: 'https://placeimg.com/64/64/1',
-  name: '홍길동',
-  birthday: '961222',
-  gender: '남자',
-  job: '대학생'
-},
-  {
-  id: 2,
-  image: 'https://placeimg.com/64/64/2',
-  name: '김태리',
-  birthday: '951127',
-  gender: '여자',
-  job: '대학생'
-},
-  {
-  id: 3,
-  image: 'https://placeimg.com/64/64/3',
-  name: '김우일',
-  birthday: '861222',
-  gender: '남자',
-  job: '통역사'
-},
-]
+
 
 function App() {
+
+    const[customerData, setCustomerData]= useState([]);
+
+    const callApi = async () => {
+      const response = await fetch('/api/customers');
+      const body = await response.json();
+      console.log(body);
+      return body;
+    }
+    useEffect(()=>{
+      callApi().then((data) => setCustomerData(data));
+    },[]);
+    
   
+ 
   return (
     <Paper>
       <Table>
@@ -54,7 +44,7 @@ function App() {
         </TableHead>
         <TableBody>
           {
-            customers.map(c => {
+            customerData.map ? customerData.map(c => {
               return (
                 <Customer
                   key={c.id}
@@ -66,7 +56,7 @@ function App() {
                   job={c.job}
                 />
               );
-            })
+            }) : ""
           }
         </TableBody>
       </Table>
