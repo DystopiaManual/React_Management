@@ -8,24 +8,40 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { createTheme, makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import { Component, useEffect, useState } from 'react';
-
+import { CircularProgress } from '@material-ui/core';
 
 
 
 
 function App() {
 
-    const[customerData, setCustomerData]= useState([]);
+    const[customerData, setCustomerData]= useState("");
+    const[completed, setCompleted] = useState(0);
+    const[isLoad, setIsLoad] = useState(false);
 
     const callApi = async () => {
       const response = await fetch('/api/customers');
       const body = await response.json();
+      setIsLoad(true);
       console.log(body);
       return body;
     }
+    
     useEffect(()=>{
+      let complete = 0;
+      let timer = setInterval(() => {
+      if (complete >= 100) {
+        complete = 0
+      } else {
+        complete += 1;
+      }
+      setCompleted(complete);
+      if (isLoad) {
+        clearInterval(timer);
+      }
+    }, 20);
       callApi().then((data) => setCustomerData(data));
-    },[]);
+    },[isLoad]);
     
   
  
@@ -56,7 +72,12 @@ function App() {
                   job={c.job}
                 />
               );
-            }) : ""
+            }) : 
+            <TableRow>
+              <TableCell colSpan='6' align='center'>
+                <CircularProgress variant="indeterminate" value={completed}></CircularProgress>
+              </TableCell>
+            </TableRow>
           }
         </TableBody>
       </Table>
