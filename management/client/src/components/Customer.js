@@ -8,7 +8,7 @@ function Customer(props) {
     
         <TableRow>
             <TableCell>{props.id}</TableCell>
-            <TableCell><img src={props.image} alt='프로필사진'/></TableCell>
+            <TableCell><img src={props.image} alt='프로필사진' style={{width:100, height:100}}/></TableCell>
             <TableCell>{props.name}</TableCell>
             <TableCell>{props.birthday}</TableCell>
             <TableCell>{props.gender}</TableCell>
