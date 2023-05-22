@@ -14,7 +14,7 @@ import { CircularProgress } from '@material-ui/core';
 
 
 
-function App() {
+function App(props) {
 
     const[customerData, setCustomerData]= useState("");
     const[completed, setCompleted] = useState(0);
@@ -66,6 +66,7 @@ function App() {
               <TableCell>생년월일</TableCell>
               <TableCell>성별</TableCell>
               <TableCell>직업</TableCell>
+              <TableCell>설정</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,6 +74,7 @@ function App() {
               customerData.map ? customerData.map(c => {
                 return (
                   <Customer
+                    stateRefresh={stateRefresh}
                     key={c.id}
                     id={c.id}
                     image={c.image}

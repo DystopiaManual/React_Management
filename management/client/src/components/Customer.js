@@ -1,9 +1,11 @@
 import React from 'react'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
-import { Tab } from '@material-ui/core'
+import CustomerDelete from './CustomerDelete'
+
 
 function Customer(props) {
+  const { stateRefresh } = props;
   return (
     
         <TableRow>
@@ -13,6 +15,7 @@ function Customer(props) {
             <TableCell>{props.birthday}</TableCell>
             <TableCell>{props.gender}</TableCell>
             <TableCell>{props.job}</TableCell>
+            <TableCell><CustomerDelete id={props.id} stateRefresh={stateRefresh}/></TableCell>
         </TableRow>
     
   )

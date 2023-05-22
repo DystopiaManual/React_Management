@@ -14,7 +14,7 @@ function CustomerAdd(props) {
     addCustomer()
       .then((response) => {
         console.log(response.data);
-        props.stateRefresh();
+        stateRefresh();
       });
       setFile(null)
       setUserName('')
